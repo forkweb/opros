@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import login from './login'
+import firebase from 'firebase/app'
 
 Vue.use(Vuex);
 
@@ -17,7 +18,13 @@ export default new Vuex.Store({
     createTask(state, task) {
       state.tasks.push(task)
 
-      localStorage.setItem('tasks', JSON.stringify(state.tasks))
+      // localStorage.setItem('tasks', JSON.stringify(state.tasks));
+
+      const db = firebase.firestore();
+
+      db.collection('surveys').add({
+        data: task
+      });
     },
     updateTask(state, {id, description, date}) {
       const tasks = state.tasks.concat()

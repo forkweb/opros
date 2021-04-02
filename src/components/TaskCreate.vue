@@ -32,6 +32,7 @@
 
           </div>
           <button @click.prevent="addBlock" class="btn add_new_block">Добавить новый блок с вопросом </button>
+          <button @click.prevent="addAll" class="btn add_new_block">тест </button>
 
           
 
@@ -50,7 +51,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
+// import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
@@ -62,7 +63,8 @@ export default {
     chips: null,
     date: null,
     variant: [],
-    variantinfo:""
+    variantinfo:"",
+    alldata: []
   }),
   mounted() {
     this.date = window.M.Datepicker.init(this.$refs.datepicker, {
@@ -75,10 +77,22 @@ export default {
     addBlock() {
       console.log("dasdas");
     },
+    addAll() {
+
+      const itemoros = {
+        title: this.title,
+        variants: this.variant
+      }
+
+      this.alldata.push({itemopros: itemoros});
+      console.log(itemoros);
+
+
+    },
     add() {
       if( this.variantinfo ){
-         this.variant.push({variantinfo: this.variantinfo});
-          this.variantinfo = "";
+        this.variant.push({variantinfo: this.variantinfo});
+        this.variantinfo = "";
       }
     },
     remove: function(ev){
@@ -99,12 +113,12 @@ export default {
       this.$router.push('/list');
 
 
-      const db = firebase.firestore();
-      // let ref = db.ref('surveys');
+      // const db = firebase.firestore();
+      // // let ref = db.ref('surveys');
 
-      db.collection('surveys').add({
-        data: task
-      });
+      // db.collection('surveys').add({
+      //   data: task
+      // });
 
 
     }

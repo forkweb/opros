@@ -29,6 +29,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 let app
+// this.$store.dispatch('loadTasks');
 
 firebase.auth().onAuthStateChanged(()=> {
   if(!app) {

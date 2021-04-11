@@ -63,7 +63,7 @@
 </template>
 
 <script>
-import firebase from 'firebase/app'
+// import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
@@ -143,19 +143,19 @@ export default {
 
 
 
-      // store.dispatch('createTask', {
-      //   task,
-      //   otherinfo
-      // });
+      this.$store.dispatch('createTask', {
+        task,
+        otherinfo
+      });
 
 
-      const db = firebase.firestore();
+      // const db = firebase.firestore();
       // // let ref = db.ref('surveys');
 
-      db.collection('surveys').add({
-        data: task,
-        otherinfo: otherinfo,
-      });
+      // db.collection('surveys').add({
+      //   data: task,
+      //   otherinfo: otherinfo,
+      // });
 
       this.$router.push('/list');
       

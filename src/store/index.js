@@ -2,28 +2,47 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import login from './login'
 import firebase from 'firebase/app'
+import 'firebase/firestore'
+import 'firebase/database'
+import 'firebase/auth'
+
+
 
 Vue.use(Vuex);
 
+
+
+
+
+
 export default new Vuex.Store({
   state: {
-    tasks: JSON.parse(localStorage.getItem('tasks') || '[]').map(task => {
-      if (new Date(task.date) < new Date()) {
-        task.status = 'outdated'
-      }
-      return task
-    })
+    tasks: []
+    // tasks: db2.collection("surveys").onSnapshot(snap => {
+    //   return snap.docs.map(doc => doc.data());
+    // })
+    // tasks: JSON.parse(localStorage.getItem('tasks') || '[]').map(task => {
+    //   if (new Date(task.date) < new Date()) {
+    //     task.status = 'outdated'
+    //   }
+    //   return task
+    // })
   },
   mutations:{
-    createTask(state, task) {
-      state.tasks.push(task)
+    setLoadTask(state, value) {
+      state.tasks = value;
+    },
+    createTask(state, {task, otherinfo}) {
+      state.tasks.push(task,otherinfo)
+      // state.tasks.push()
 
       // localStorage.setItem('tasks', JSON.stringify(state.tasks));
 
       const db = firebase.firestore();
 
       db.collection('surveys').add({
-        data: task
+        data: task,
+        otherinfo: otherinfo
       });
     },
     updateTask(state, {id, description, date}) {
@@ -46,6 +65,26 @@ export default new Vuex.Store({
     }
   },
   actions:{
+    // loadTask({commit}) {
+      // const list = [];
+      // firebase.database().ref('surveys').on('value', data =>{
+      //   for(var i = list.length -1; i>=0; i--) {
+      //     list.splice(i,1);
+      //   }
+      //   data.forEach(obj =>{
+      //     let m = obj.val();
+      //     m.id = obj.key;
+      //     list.push(m);
+      //   })
+      // });
+
+      // const db = firebase.firestore();
+      // db.collection("surveys").onSnapshot(snap => {
+      //     let res = snap.docs.map(doc => doc.data());
+      //     // state.tasks = list
+      //     commit('setLoadTask',res);
+      // });
+    // },
     createTask({commit}, task) {
       commit('createTask', task)
     },
@@ -58,7 +97,10 @@ export default new Vuex.Store({
   },
   getters: {
     tasks: s => s.tasks,
-    taskById: s => id => s.tasks.find(t => t.id === id)
+    taskById: s => id => s.tasks.find(t => t.id === id),
+    allTasks(state) {
+      return state.tasks
+    }
   },
   modules: {
     login

@@ -29,30 +29,33 @@
 export default {
   computed: {
     task() {
+      // return this.$store.getters.allTasks;
       return this.$store.getters.taskById(+this.$route.params.id)
+      // return console.log(this.$store.getters.allTasks)
+
     }
   },
   data: () => ({
+    title: '',
     description: '',
-    chips: null,
-    // date: null,
+    chechbocks: '',
   }),
   mounted() {
     // this.description = this.task.description
-    this.description = "sadasd"
-    this.chips = window.M.Chips.init(this.$refs.chips, {
-      placeholder: 'Теги задачи',
-      // data: this.task.tags
-      data: "sadasd"
-    })
+    // this.description = "sadasd"
+    // this.chips = window.M.Chips.init(this.$refs.chips, {
+    //   placeholder: 'Теги задачи',
+    //   // data: this.task.tags
+    //   data: "sadasd"
+    // })
     // this.date = window.M.Datepicker.init(this.$refs.datepicker, {
     //   format: 'dd.mm.yyyy',
     //   defaultDate: new Date(this.task.date),
     //   setDefaultDate: true
     // })
-    setTimeout(() => {
-      window.M.updateTextFields()
-    }, 0)
+    // setTimeout(() => {
+    //   window.M.updateTextFields()
+    // }, 0)
   },
   methods: {
     submitHandler() {

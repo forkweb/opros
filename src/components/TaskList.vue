@@ -19,8 +19,6 @@
 
         <div v-for="survey of surveys" :key="survey.otherinfo.id">
           {{survey.otherinfo.title}}
-          <!-- {{survey.data.titleglav.title}} -->
-          <!-- {{survey.id}} -->
           <router-link tag="button" class="btn btn-small" :to="'/task/' + survey.otherinfo.id">
             Открыть
           </router-link>

@@ -3,12 +3,24 @@
     <div class="col s6 offset-s3">
       <h1>Создание опроса</h1>
 
-      <form @submit.prevent="submitHandler">
+      <div class="infoall" v-for="(item) in alldata" :key="item.id">
+        <span>{{item.itemopros.title}}</span>
+      </div>
 
-          <div class="formcreate">
-            <div class="input-field">
+      <form>
+
+        <div class="formcreate">
+
+
+          <div class="input-field">
+            <input id="title" v-model="titleGlav" type="text" class="validate" required>
+            <label for="title">Тема опроса</label>
+            <span class="helper-text" data-error="Title is required"></span>
+          </div>
+
+          <div class="input-field">
             <input id="title" v-model="title" type="text" class="validate" required>
-            <label for="title">Заголовок вопроса</label>
+            <label for="title">Вопрос</label>
             <span class="helper-text" data-error="Title is required"></span>
           </div>
 
@@ -30,9 +42,9 @@
           <!--  -->
 
 
-          </div>
-          <button @click.prevent="addBlock" class="btn add_new_block">Добавить новый блок с вопросом </button>
-          <button @click.prevent="addAll" class="btn add_new_block">тест </button>
+        </div>
+          <!-- <button @click.prevent="addBlock" class="btn add_new_block">Добавить новый блок с вопросом </button> -->
+          <button @click.prevent="addAll" class="btn add_new_block">Добавить блок</button>
 
           
 
@@ -42,7 +54,7 @@
           <label for="description">Описание</label>
           <span class="character-counter" style="float: right; font-size: 12px;">{{description.length}}/2048</span>
         </div>
-        <button class="btn" type="submit">Создать опрос</button>
+        <button class="btn" v-on:click.prevent.stop="submitHandler()">Создать опрос</button>
       </form>
       
       
@@ -51,13 +63,14 @@
 </template>
 
 <script>
-// import firebase from 'firebase/app'
+import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
 export default {
   name: 'create',
   data: () => ({
+    titleGlav: '',
     description: '',
     title: '',
     chips: null,
@@ -85,7 +98,14 @@ export default {
       }
 
       this.alldata.push({itemopros: itemoros});
+
+      this.title = "",
+      this.variant = [];
+
+
+
       console.log(itemoros);
+      
 
 
     },
@@ -100,26 +120,45 @@ export default {
       this.variant.splice(id, 1);
     },
     submitHandler() {
-      const task = {
-        title: this.title,
-        description: this.description,
+      // const task = {
+      //   title: this.title,
+      //   description: this.description,
+      //   id: Date.now(),
+      //   status: 'active',
+      //   date: this.date.date,
+      //   variant: this.variant
+      // }
+
+      const task = this.alldata;
+      const otherinfo = {
+        title: this.titleGlav,
         id: Date.now(),
-        status: 'active',
         date: this.date.date,
-        variant: this.variant
+        description: this.description
       }
+  
 
-      this.$store.dispatch('createTask', task);
-      this.$router.push('/list');
+      // this.$store.dispatch('createTask', task);
+      // this.$store.dispatch('createTask', titleglav);
 
 
-      // const db = firebase.firestore();
-      // // let ref = db.ref('surveys');
 
-      // db.collection('surveys').add({
-      //   data: task
+      // store.dispatch('createTask', {
+      //   task,
+      //   otherinfo
       // });
 
+
+      const db = firebase.firestore();
+      // // let ref = db.ref('surveys');
+
+      db.collection('surveys').add({
+        data: task,
+        otherinfo: otherinfo,
+      });
+
+      this.$router.push('/list');
+      
 
     }
   },

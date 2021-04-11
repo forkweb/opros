@@ -17,9 +17,11 @@
       <tbody>
 
 
-        <div v-for="survey of surveys" :key="survey.id">
-          {{survey.title}}
-          <router-link tag="button" class="btn btn-small" :to="'/task/' + survey.id">
+        <div v-for="survey of surveys" :key="survey.otherinfo.id">
+          {{survey.otherinfo.title}}
+          <!-- {{survey.data.titleglav.title}} -->
+          <!-- {{survey.id}} -->
+          <router-link tag="button" class="btn btn-small" :to="'/task/' + survey.otherinfo.id">
             Открыть
           </router-link>
         </div>
@@ -73,7 +75,8 @@ export default {
     const db = firebase.firestore();
 
     db.collection("surveys").onSnapshot(snap => {
-      this.surveys = snap.docs.map(doc => doc.data().data);
+      // this.surveys = snap.docs.map(doc => doc.data().data);
+      this.surveys = snap.docs.map(doc => doc.data());
 
       // let items = snap.docs.map(doc => {
       //     return { id: doc.data().id, title: doc.data().data.title }

@@ -35,19 +35,21 @@ export default {
   data: () => ({
     description: '',
     chips: null,
-    date: null,
+    // date: null,
   }),
   mounted() {
-    this.description = this.task.description
+    // this.description = this.task.description
+    this.description = "sadasd"
     this.chips = window.M.Chips.init(this.$refs.chips, {
       placeholder: 'Теги задачи',
-      data: this.task.tags
+      // data: this.task.tags
+      data: "sadasd"
     })
-    this.date = window.M.Datepicker.init(this.$refs.datepicker, {
-      format: 'dd.mm.yyyy',
-      defaultDate: new Date(this.task.date),
-      setDefaultDate: true
-    })
+    // this.date = window.M.Datepicker.init(this.$refs.datepicker, {
+    //   format: 'dd.mm.yyyy',
+    //   defaultDate: new Date(this.task.date),
+    //   setDefaultDate: true
+    // })
     setTimeout(() => {
       window.M.updateTextFields()
     }, 0)

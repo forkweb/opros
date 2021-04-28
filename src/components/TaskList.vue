@@ -26,13 +26,13 @@
         <div v-for="survey of surveys" :key="survey.otherinfo.id" :title="survey.otherinfo.title">
 
 
-          <task
+          <!-- <task
             :title="survey.otherinfo.title"
             :survey="survey"
-          />
+          /> -->
 
-          <!-- {{survey.otherinfo.title}} -->
-          <router-link tag="button" class="btn btn-small" :to="{ name: 'task', params: { searchTags: survey } }">
+          {{survey.otherinfo.title}}
+          <router-link tag="button" class="btn btn-small" :to="{ name: 'task', params: { searchTags: survey, id: survey.otherinfo.id} }">
             Открыть
           </router-link>
         </div>
@@ -65,16 +65,14 @@
 </template>
 
 <script>
-// import Task from './Task'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
 
-import Task from './Task'
+// import Task from './Task'
 
 export default {
-  components: { Task },
   data: () => ({
     surveys: ""
   }),

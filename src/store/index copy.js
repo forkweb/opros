@@ -8,16 +8,21 @@ import 'firebase/auth'
 
 
 
+
+
 Vue.use(Vuex);
-
-
-
-
+// const db2 = firebase.firestore();
 
 
 export default new Vuex.Store({
   state: {
+    // tasks: db.collection("surveys").onSnapshot(snap => {
+    //   snap.docs.map(doc => doc.data());
+    // })
     tasks: []
+    // tasks: db2.collection("surveys").onSnapshot(snapshot => {
+    //   return snapshot.val
+    // })
     // tasks: db2.collection("surveys").onSnapshot(snap => {
     //   return snap.docs.map(doc => doc.data());
     // })
@@ -29,19 +34,23 @@ export default new Vuex.Store({
     // })
   },
   mutations:{
-    setLoadTask(state, value) {
-      state.tasks = value;
-    },
+    // LoadTask(state) {
+      
+    //   const db = firebase.firestore();
+    //   db.collection("surveys").onSnapshot(snap => {
+    //       let res = snap.docs.map(doc => doc.data());
+    //       state.tasks = res;
+    //       // commit('LoadTask',res);
+    //   });
+    // },
+    // setLoadTask(state, value) {
+    //   state.tasks = value;
+    // },
     createTask(state, {task, otherinfo}) {
       state.tasks.push(task,otherinfo)
       // state.tasks.push()
 
-      // let arrtaks = [{
-      //   data: task,
-      //   otherinfo: otherinfo
-      // }]
-
-      // localStorage.setItem('tasks', JSON.stringify(arrtaks))
+      // localStorage.setItem('tasks', JSON.stringify(state.tasks));
 
       const db = firebase.firestore();
 
@@ -61,15 +70,20 @@ export default new Vuex.Store({
       tasks[idx] = {...task, date, description, status}
 
       state.tasks = tasks
-      // localStorage.setItem('tasks', JSON.stringify(state.tasks))
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
     },
     completeTask(state, id) {
       const idx = state.tasks.findIndex(t => t.id === id)
       state.tasks[idx].status = 'completed'
-      // localStorage.setItem('tasks', JSON.stringify(state.tasks))
+      localStorage.setItem('tasks', JSON.stringify(state.tasks))
     }
   },
   actions:{
+    // loadTask({commit}){
+    //   firebase.database.ref('surveys').on('value', snapshot => {
+    //     commit('loadTask', snapshot.val());
+    //   })
+    // },
     // loadTask({commit}) {
       // const list = [];
       // firebase.database().ref('surveys').on('value', data =>{
@@ -89,6 +103,9 @@ export default new Vuex.Store({
       //     // state.tasks = list
       //     commit('setLoadTask',res);
       // });
+    // },
+    // LoadTask({commit}, task) {
+    //   commit('LoadTask', task)
     // },
     createTask({commit}, task) {
       commit('createTask', task)

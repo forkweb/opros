@@ -17,12 +17,32 @@
       <tbody>
 
 
-        <div v-for="survey of surveys" :key="survey.otherinfo.id">
+        <!-- <div v-for="survey of surveys" :key="survey.otherinfo.id">
           {{survey.otherinfo.title}}
           <router-link tag="button" class="btn btn-small" :to="'/task/' + survey.otherinfo.id">
             Открыть
           </router-link>
+        </div> -->
+        <div v-for="survey of surveys" :key="survey.otherinfo.id" :title="survey.otherinfo.title">
+
+
+          <task
+            :title="survey.otherinfo.title"
+            :survey="survey"
+          />
+
+          <!-- {{survey.otherinfo.title}} -->
+          <router-link tag="button" class="btn btn-small" :to="{ name: 'task', params: { searchTags: survey } }">
+            Открыть
+          </router-link>
         </div>
+<!-- 
+        <Task v-for="survey of surveys" :key="survey.otherinfo.id" :title="survey.otherinfo.title">
+          {{survey.otherinfo.title}}
+          <router-link tag="button" class="btn btn-small" :to="'/task/' + survey.otherinfo.id">
+            Открыть
+          </router-link>
+        </Task> -->
 
 
       <!-- <tr v-for="(task, idx) of displayTasks" :key="task.id">
@@ -45,14 +65,20 @@
 </template>
 
 <script>
+// import Task from './Task'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
+
+import Task from './Task'
+
 export default {
+  components: { Task },
   data: () => ({
     surveys: ""
   }),
+  // components: { Task },
   computed: {
     tasks() {
       return this.$store.getters.tasks
@@ -75,6 +101,10 @@ export default {
     db.collection("surveys").onSnapshot(snap => {
       // this.surveys = snap.docs.map(doc => doc.data().data);
       this.surveys = snap.docs.map(doc => doc.data());
+
+      //  this.$store.state.tasks.dispatch(this.surveys);
+      //  console.log(this.$store.state)
+      
 
       // let items = snap.docs.map(doc => {
       //     return { id: doc.data().id, title: doc.data().data.title }

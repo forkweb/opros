@@ -1,84 +1,48 @@
 <template>
   <div class="row">
-    <div v-if="task" class="col s6 offset-s3">
-      <h1>{{task.title}}</h1>
-
-      <form @submit.prevent="submitHandler">
-
-        <div class="chips" ref="chips"></div>
-
-        <div class="input-field">
-          <textarea style="min-height: 150px" v-model="description" id="description" class="materialize-textarea"></textarea>
-          <label for="description">Описание</label>
-          <span class="character-counter" style="float: right; font-size: 12px;">{{description.length}}/2048</span>
-        </div>
-
-        <input type="text" ref="datepicker">
-
-        <div v-if="task.status !== 'completed'">
-          <button class="btn" type="submit" style="margin-right: 1rem;">Сохранить</button>
-          <button class="btn blue" type="button" @click="completeTask">Завершить задачу</button>
-        </div>
-      </form>
+    <div class="col s6 offset-s3">
+      <h1>{{id}}</h1>
+      {{title}}
+      {{surveyNow}}
     </div>
-    <p v-else>Задача не найдена</p>
   </div>
 </template>
 
 <script>
+
 export default {
+  props: ['title', 'survey'],
+  data() {
+    return {
+      id: this.$route.params['id'],
+      surveyNow: this.$route.params.searchTags
+    }
+  },
+  created() { 
+    // const film = films.find(film => film.id == this.$route.params.id)
+    // if (film) {
+    //   this.film = film
+    // }
+  },
   computed: {
-    task() {
-      // return this.$store.getters.allTasks;
-      return this.$store.getters.taskById(+this.$route.params.id)
-      // return console.log(this.$store.getters.allTasks)
+    // nowTasks() {
+    //   return this.tasks
+    // }
+  },
+  mounted () {
+    // const db = firebase.firestore();
 
-    }
-  },
-  data: () => ({
-    title: '',
-    description: '',
-    chechbocks: '',
-  }),
-  mounted() {
-    // this.description = this.task.description
-    // this.description = "sadasd"
-    // this.chips = window.M.Chips.init(this.$refs.chips, {
-    //   placeholder: 'Теги задачи',
-    //   // data: this.task.tags
-    //   data: "sadasd"
-    // })
-    // this.date = window.M.Datepicker.init(this.$refs.datepicker, {
-    //   format: 'dd.mm.yyyy',
-    //   defaultDate: new Date(this.task.date),
-    //   setDefaultDate: true
-    // })
-    // setTimeout(() => {
-    //   window.M.updateTextFields()
-    // }, 0)
-  },
-  methods: {
-    submitHandler() {
-      this.$store.dispatch('updateTask', {
-        id: this.task.id,
-        description: this.description,
-        date: this.date.date
-      })
-      this.$router.push('/list')
-    },
-    completeTask() {
-      this.$store.dispatch('completeTask', this.task.id)
-      this.$router.push('/list')
-    }
-  },
-  destroyed() {
-    if (this.date && this.date.destroy) {
-      this.date.destroy()
-    }
+    //  db.collection("surveys").onSnapshot(snap => {
 
-    if (this.chips && this.chips.destroy) {
-      this.chips.destroy()
-    }
+    //   this.task = snap.docs.map(doc => doc.data());
+    //  });
+
+    // db.collection('surveys').doc(this.$route.params.id).get().then(snapshot => {
+    //     if (!snapshot.exists) return;
+    //     let data = snapshot.data() // 
+    //     this.task = data
+    // });
+    
   }
 }
 </script>

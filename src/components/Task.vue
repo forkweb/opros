@@ -3,7 +3,44 @@
     <div class="col s6 offset-s3">
       <h1>{{id}}</h1>
       {{title}}
-      {{surveyNow}}
+      <!-- {{surveyNow.data}} -->
+
+
+      <div v-for="surveyI of surveyNow.data" :key="surveyI.id">
+          {{surveyI.itemopros.title}}
+          <!-- {{surveyI.itemopros.variants}} -->
+          
+
+          <!-- <div class="panel-item" v-for="(value, key) in surveyI.itemopros.variants" :key="key">
+
+            <input 
+              type="checkbox" 
+              :id="surveyI.itemopros.variants[key].variantinfo" 
+              v-model="checkedNames">
+
+            <label 
+              :for="surveyI.itemopros.variants[key].variantinfo">
+              {{ surveyI.itemopros.variants[key].variantinfo }}
+            </label>
+
+          </div> -->
+            <!-- <input type="checkbox" v-bind:value="user" v-model="selectedUsers">
+            <label>{{user.variantinfo}}</label> -->
+
+
+          <div v-for="user in surveyI.itemopros.variants" :key="user.key">
+            <label>
+              <input type="checkbox" v-bind:value="user" v-model="checkedNames">
+              <span>{{user.variantinfo}}</span>
+            </label>
+          </div>
+
+
+
+      </div>
+
+      
+
     </div>
   </div>
 </template>
@@ -15,7 +52,8 @@ export default {
   data() {
     return {
       id: this.$route.params['id'],
-      surveyNow: this.$route.params.searchTags
+      surveyNow: this.$route.params.searchTags,
+      checkedNames: []
     }
   },
   created() { 

@@ -111,7 +111,10 @@ export default {
     },
     add() {
       if( this.variantinfo ){
-        this.variant.push({variantinfo: this.variantinfo});
+        this.variant.push({
+          variantinfo: this.variantinfo,
+          title: this.title
+        });
         this.variantinfo = "";
       }
     },

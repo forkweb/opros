@@ -1,8 +1,9 @@
 <template>
   <div class="row">
     <div class="col s6 offset-s3">
-      <h1>{{id}}</h1>
-      {{title}}
+      <!-- <h1>{{id}}</h1> -->
+      <h1>{{surveyNow.otherinfo.title}}</h1>
+      <p>{{surveyNow.otherinfo.description}}</p>
       <!-- {{surveyNow.data}} -->
 
 

@@ -16,14 +16,16 @@ Vue.config.productionTip = false
 Vue.use(Vuelidate);
 
 
-const firebaseConfig = {
-  apiKey: "AIzaSyC-LtSA-oCaiyZeirQv3rraT5zVcm1NLRU",
-  authDomain: "simbirsoft-631cb.firebaseapp.com",
-  databaseURL: "https://simbirsoft-631cb.firebaseio.com",
-  projectId: "simbirsoft-631cb",
-  storageBucket: "simbirsoft-631cb.appspot.com",
-  messagingSenderId: "989666207320",
-  appId: "1:989666207320:web:8bd6f81f6e2e3326000c2d"
+
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyCEPRezeEcG2yM9QH6g_M2zm-D7CiJ4h1c",
+  authDomain: "green-atom.firebaseapp.com",
+  databaseURL: "https://green-atom-default-rtdb.firebaseio.com/",
+  projectId: "green-atom",
+  storageBucket: "green-atom.appspot.com",
+  messagingSenderId: "241293828309",
+  appId: "1:241293828309:web:d5140ed2b34d7a8c64425c"
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

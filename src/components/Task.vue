@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col s6 offset-s3">
+    <div class="task_item">
       <!-- <h1>{{id}}</h1> -->
       <h1>{{surveyNow.otherinfo.title}}</h1>
       <p>{{surveyNow.otherinfo.description}}</p>
@@ -34,6 +34,14 @@
               <input type="checkbox" v-bind:value="user" v-model="checkedNames">
               <span>{{user.variantinfo}}</span>
             </label>
+          </div>
+
+
+
+          
+
+          <div class="finish">
+            <button>Готово</button>
           </div>
 
 

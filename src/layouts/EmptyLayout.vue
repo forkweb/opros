@@ -1,5 +1,5 @@
 <template>
-  <div class="grey darken-1 empty-layout">
+  <div class="wrap-app blue-grey lighten-5">
     <router-view />
   </div>
 </template>

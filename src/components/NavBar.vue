@@ -1,11 +1,11 @@
 <template>
-  <nav class="navbar orange lighten-1">
+  <nav class="navbar green darken-2">
     <div class="nav-wrapper">
 
       <ul class="right hide-on-small-and-down">
         <li>
           <a
-              class="dropdown-trigger black-text"
+              class="dropdown-trigger white-text"
               href="#"
               data-target="dropdown"
               ref="dropdown"

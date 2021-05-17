@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <div class="col s6 offset-s3">
+    <div class="task-create-wrapper">
       <h1>Создание опроса</h1>
 
       <div class="infoall" v-for="(item) in alldata" :key="item.id">

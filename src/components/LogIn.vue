@@ -1,5 +1,7 @@
 <template>
-  <form class="card auth-card" @submit.prevent="submitHandler">
+<div class="block_auth">
+  <h1 class="title_app"> Конструктор опросов</h1>
+    <form class="card auth-card" @submit.prevent="submitHandler">
     <div class="card-content">
       <span class="card-title">Авторизуйтесь</span>
       <div class="input-field">
@@ -37,13 +39,9 @@
           <i class="material-icons right">send</i>
         </button>
       </div>
-
-      <!-- <p class="center">
-        Нет аккаунта?
-        <a href="/">Зарегистрироваться</a>
-      </p> -->
     </div>
   </form>
+</div>
 </template>
 
 

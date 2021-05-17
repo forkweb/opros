@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap');
+
+body {
+  font-family: 'Comfortaa', cursive !important;
+}
+
+.block_auth {
+  text-align: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-flow: column;
+  align-items: center;
+}
+
+.wrap-app {
+  height: 100vh;
+}
+
+.block_auth {
+  padding-top: 8em;
+}
+
+.title_app {
+  padding-bottom: 4rem;
+}
+
+.task-create-wrapper {
+  width: 50%;
+  margin: auto;
+  h1 {
+    text-align: center;
+  }
+}
+
+.app-content {
+  padding-left: 0;
+}
+
+.task_item {
+  width: 50%;
+  margin: 0 auto;
+}
+
+.taks_itemI {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.list_tasks-items .btn.btn-small {
+  width: 250px;
+}
+
+.list_tasks-items {
+  line-height: 3;
+  width: 1024px;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
+
+.title_list_opros {
+  text-align: center;
+}

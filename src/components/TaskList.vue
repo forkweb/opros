@@ -27,6 +27,7 @@
     </div>
 
     <p v-else>Нет задач</p>
+    
   </div>
 </template>
 
@@ -60,7 +61,6 @@ export default {
   },
   mounted() {
     window.M.FormSelect.init(this.$refs.select);
-
   },
   beforeCreate() {
     // let ref = db.collection('surveys');

@@ -43,21 +43,40 @@
 
     <div class="task_item" v-else>
         <h3>Поздравляю, вы прошли опрос</h3>
-        <h4>В ыможете отправить или сохранить результат</h4>
+        <h4>Вы можете отправить результат на почту или сохранить в файл</h4>
 
         <div class="controls-finish">
-          <button class="btn waves-effect waves-light" type="submit" name="action">
-            Отправить на почту
-          <i class="material-icons right">send</i>
-        </button>
-        <a class="waves-effect waves-light btn">Экспорт в Excel</a>
+
+          <div class="btn modal-trigger" @click="showModal">Отправить на почту</div>
+          <!-- Modal Structure -->
+          <div :class="['modal', open ? 'open' : '']" :style="[open ? modalStyle: '']">
+            <div class="modal-content">
+              <h4>Отправить резульататы на почту</h4>
+              <p>тест</p>
+              <button @click="step1">Назад</button>
+            </div>
+          </div>
+
+          <download-excel 
+            :data="checkedNames">
+            <a class="waves-effect waves-light btn">Экспорт в Excel</a>
+          </download-excel>
+
         </div>
+
+
+
     </div>
 
   </div>
 </template>
 
 <script>
+import Vue from "vue";
+import JsonExcel from "vue-json-excel";
+ 
+Vue.component("downloadExcel", JsonExcel);
+
 export default {
   props: ["title", "survey"],
   data() {
@@ -65,7 +84,14 @@ export default {
       id: this.$route.params["id"],
       surveyNow: this.$route.params.searchTags,
       checkedNames: [],
-      showblock: true
+      showblock: true,
+      open: false,
+      modalStyle: {
+        'z-index': 1003,
+        'display': 'block', 
+        'opacity': 1,
+        'transform': 'scaleX(1); top: 10%'
+      }
     };
   },
   created() {
@@ -80,6 +106,7 @@ export default {
     // }
   },
   mounted() {
+    window.M.Modal.init("#modal1")
     // const db = firebase.firestore();
     //  db.collection("surveys").onSnapshot(snap => {
     //   this.task = snap.docs.map(doc => doc.data());
@@ -94,6 +121,18 @@ export default {
     finish() {
       this.showblock = false
       // this.$router.push({ path: '/finish' })
+    },
+    showModal() {
+      if(!this.checkedNames.length == 0) {
+        this.open = true;
+      }else {
+        alert("Необходимо пройти опрос")
+        // this.$router.push({ path: '/finish' })
+      }
+     
+    },
+    step1(){
+      this.open = false;
     }
   }
 };

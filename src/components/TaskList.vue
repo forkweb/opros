@@ -12,6 +12,7 @@
         v-for="(item, index) in surveys" :key="index">
         <span>{{ index }}</span>
         <span>{{ item.otherinfo.title }}</span>
+        <span>{{moment(item.otherinfo.date).format('YYYY-MM-DD')}}</span>
         <router-link
           tag="button"
           class="btn btn-small"
@@ -36,10 +37,14 @@ import "firebase/database";
 import "firebase/firestore";
 
 // import Task from './Task'
+import moment from 'moment'
+
+
 
 export default {
   data: () => ({
     surveys: "",
+    dateparse: ""
   }),
   // components: { Task },
   computed: {
@@ -55,6 +60,7 @@ export default {
   },
   mounted() {
     window.M.FormSelect.init(this.$refs.select);
+
   },
   beforeCreate() {
     // let ref = db.collection('surveys');
@@ -76,6 +82,11 @@ export default {
       // console.log(items);
     });
   },
+  methods: {
+    moment: function () {
+      return moment();
+    }
+},
 };
 </script>
 

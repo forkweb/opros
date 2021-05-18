@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar green darken-2">
+  <nav class="navbar teal lighten-1">
     <div class="nav-wrapper">
 
       <ul class="right hide-on-small-and-down">

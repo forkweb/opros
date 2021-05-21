@@ -58,7 +58,8 @@
           </div>
 
           <download-excel 
-            :data="checkedNames">
+            :data="checkedNames"
+            :name='`${surveyNow.otherinfo.title + " " + moment(surveyNow.otherinfo.date).format("YYYY-MM-DD")}.xls`'>
             <a class="waves-effect waves-light btn">Экспорт в Excel</a>
           </download-excel>
 
@@ -74,6 +75,7 @@
 <script>
 import Vue from "vue";
 import JsonExcel from "vue-json-excel";
+import moment from 'moment'
  
 Vue.component("downloadExcel", JsonExcel);
 
@@ -133,6 +135,9 @@ export default {
     },
     step1(){
       this.open = false;
+    },
+    moment: function () {
+      return moment();
     }
   }
 };

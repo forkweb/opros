@@ -3,30 +3,11 @@
     <div
       v-if="showblock == true"
       class="task_item">
-      <!-- <h1>{{id}}</h1> -->
       <h1>Тема опроса: {{ surveyNow.otherinfo.title }}</h1>
       <p>Описание: {{ surveyNow.otherinfo.description }}</p>
-      <!-- {{surveyNow.data}} -->
 
       <div v-for="surveyI of surveyNow.data" :key="surveyI.id">
         {{ surveyI.itemopros.title }}
-        <!-- {{surveyI.itemopros.variants}} -->
-
-        <!-- <div class="panel-item" v-for="(value, key) in surveyI.itemopros.variants" :key="key">
-
-            <input 
-              type="checkbox" 
-              :id="surveyI.itemopros.variants[key].variantinfo" 
-              v-model="checkedNames">
-
-            <label 
-              :for="surveyI.itemopros.variants[key].variantinfo">
-              {{ surveyI.itemopros.variants[key].variantinfo }}
-            </label>
-
-          </div> -->
-        <!-- <input type="checkbox" v-bind:value="user" v-model="selectedUsers">
-            <label>{{user.variantinfo}}</label> -->
 
         <div v-for="user in surveyI.itemopros.variants" :key="user.key">
           <label>

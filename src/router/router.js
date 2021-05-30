@@ -2,11 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 
 import LogIn from '../components/LogIn'
-import TaskBoard from '../components/TaskBoard'
 import TaskCreate from '../components/TaskCreate'
 import TaskList from '../components/TaskList'
 import Task from '../components/Task'
-import Survey from '../components/Survey'
 
 import firebase from 'firebase/app'
 
@@ -20,19 +18,6 @@ let router = new Router({
       name: 'login',
       meta: {layout: "empty"},
       component: LogIn
-    },
-    {
-      path: '/survey',
-      name: 'survey',
-      meta: {layout: "main"},
-      component: Survey
-    },
-    {
-      path: '/board',
-      name: 'board',
-      meta: {layout: "main", login: true},
-      component: TaskBoard,
-      props: true
     },
     {
       path: '/create',

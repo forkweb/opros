@@ -7,7 +7,6 @@ import TaskCreate from '../components/TaskCreate'
 import TaskList from '../components/TaskList'
 import Task from '../components/Task'
 import Survey from '../components/Survey'
-import Finish from '../components/finish'
 
 import firebase from 'firebase/app'
 
@@ -56,13 +55,6 @@ let router = new Router({
       component: Task,
       props: true
     },
-    {
-      path: '/finish',
-      name: 'finish',
-      meta: {layout: "main", login: true},
-      component: Finish,
-      props: true
-    }
   ]
 
 })

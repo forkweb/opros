@@ -41,9 +41,9 @@
       </div>
     </div>
 
-    <div class="task_item" v-else>
-        <h3>Поздравляю, вы прошли опрос</h3>
-        <h4>Вы можете отправить результат на почту или сохранить в файл</h4>
+    <div class="task_item finish_step" v-else>
+        <h3 class="finish_step__title">Поздравляю, вы прошли опрос</h3>
+        <h4 class="finish_step__title">Вы можете отправить результат на почту или сохранить в файл</h4>
 
         <div class="controls-finish">
 
@@ -52,8 +52,12 @@
           <div :class="['modal', open ? 'open' : '']" :style="[open ? modalStyle: '']">
             <div class="modal-content">
               <h4>Отправить резульататы на почту</h4>
-              <p>тест</p>
-              <button @click="step1">Назад</button>
+              <form>
+                <input type='text' placeholder="Ваше имя"/>
+                <input type='text' placeholder="Ваш email"/>
+                <button class="btn" @click='send()'>Отправить результаты на почту</button>
+              </form>
+              <button class="btn" @click="step1">Назад</button>
             </div>
           </div>
 

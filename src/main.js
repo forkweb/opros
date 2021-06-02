@@ -16,12 +16,9 @@ Vue.prototype.moment = moment
 
 Vue.config.productionTip = false
 
-
 Vue.use(Vuelidate);
 
-
-
-// Your web app's Firebase configuration
+// конфиг фаербейза
 var firebaseConfig = {
   apiKey: "AIzaSyCEPRezeEcG2yM9QH6g_M2zm-D7CiJ4h1c",
   authDomain: "green-atom.firebaseapp.com",
@@ -36,11 +33,7 @@ firebase.initializeApp(firebaseConfig);
 
 let app
 
-
-
-
-
-
+//защита роутов, до авторизации другие роуты не доступны
 firebase.auth().onAuthStateChanged(()=> {
   if(!app) {
     app = new Vue({

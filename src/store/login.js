@@ -1,7 +1,7 @@
 import firebase from 'firebase/app'
 
 export default {
-  actions: {
+  actions: { //авторизация
     async login({dispatch, commit}, {email, password}) {
       try {
         await firebase.auth().signInWithEmailAndPassword(email,password);

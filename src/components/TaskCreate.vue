@@ -29,7 +29,6 @@
             <label for="title">Варианты ответа</label>
         
             <div v-for="(item, key) in variant" :key="item.id" class="varaint_otv">
-              <!-- <span>{{key}}</span> -->
               <span>{{item.variantinfo}}</span>
                 <div class="btn-group pull-right" role="group">
                   <button type="button" class="btn btn-danger btn-sm" v-bind:data-id="key" v-on:click.prevent.stop="remove">Удалить</button>
@@ -43,7 +42,6 @@
 
 
         </div>
-          <!-- <button @click.prevent="addBlock" class="btn add_new_block">Добавить новый блок с вопросом </button> -->
           <button @click.prevent="addAll" class="btn add_new_block">Добавить блок</button>
 
           
@@ -63,13 +61,12 @@
 </template>
 
 <script>
-// import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 import 'firebase/firestore'
 export default {
   name: 'create',
-  data: () => ({
+  data: () => ({ //заготовка данных, с которыми будем работать
     titleGlav: '',
     description: '',
     title: '',
@@ -80,6 +77,7 @@ export default {
     alldata: []
   }),
   mounted() {
+    //выбор даты используя библиотеку materialize
     this.date = window.M.Datepicker.init(this.$refs.datepicker, {
       format: 'dd.mm.yyyy',
       defaultDate: new Date(),
@@ -87,11 +85,7 @@ export default {
     })
   },
   methods: {
-    addBlock() {
-      console.log("dasdas");
-    },
-    addAll() {
-
+    addAll() { //добавление нового блока с вопросом и вариантами
       const itemoros = {
         title: this.title,
         variants: this.variant
@@ -102,14 +96,9 @@ export default {
       this.title = "",
       this.variant = [];
 
-
-
       console.log(itemoros);
-      
-
-
     },
-    add() {
+    add() { // добавление варианта
       if( this.variantinfo ){
         this.variant.push({
           variantinfo: this.variantinfo,
@@ -118,20 +107,11 @@ export default {
         this.variantinfo = "";
       }
     },
-    remove: function(ev){
+    remove: function(ev){ //удаление варианта
       let id = parseFloat(ev.target.getAttribute('data-id'));
       this.variant.splice(id, 1);
     },
-    submitHandler() {
-      // const task = {
-      //   title: this.title,
-      //   description: this.description,
-      //   id: Date.now(),
-      //   status: 'active',
-      //   date: this.date.date,
-      //   variant: this.variant
-      // }
-
+    submitHandler() { // создание опроса и запись в базу данных, оюработка данных происходит в сторе в файле index.js название createTask
       const task = this.alldata;
       const otherinfo = {
         title: this.titleGlav,
@@ -139,33 +119,17 @@ export default {
         date: this.date.date,
         description: this.description
       }
-  
-
-      // this.$store.dispatch('createTask', task);
-      // this.$store.dispatch('createTask', titleglav);
-
-
 
       this.$store.dispatch('createTask', {
         task,
         otherinfo
       });
 
-
-      // const db = firebase.firestore();
-      // // let ref = db.ref('surveys');
-
-      // db.collection('surveys').add({
-      //   data: task,
-      //   otherinfo: otherinfo,
-      // });
-
-      this.$router.push('/list');
-      
+      this.$router.push('/list'); // после возвращаемся неа страницу с опросами
 
     }
   },
-  destroyed() {
+  destroyed() { //удаляем дату из памяти, чтобы не нагружать приложение
     if (this.date && this.date.destroy) {
       this.date.destroy();
     }

@@ -1,6 +1,5 @@
-<template>
+<template> <!-- лейаут всех страниц -->
   <div class="app-main-layout">
-    
     <Navbar/>
 
     <main class="app-content">

@@ -10,7 +10,7 @@ import firebase from 'firebase/app'
 
 Vue.use(Router);
 
-let router = new Router({
+let router = new Router({ //страницы приложения
   mode: 'history',
   routes: [
     {
@@ -44,7 +44,7 @@ let router = new Router({
 
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((to, from, next) => { //до авторизации не работает фаербейз
   const currentUser = firebase.auth().currentUser;
   const requireLogin = to.matched.some(record => record.meta.login);
 

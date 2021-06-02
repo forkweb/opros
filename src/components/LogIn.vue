@@ -46,31 +46,31 @@
 
 
 <script>
-import {email, required, minLength} from 'vuelidate/lib/validators'
+import {email, required, minLength} from 'vuelidate/lib/validators' //тут мы подключаем валидатор и вызываем его методы
 
 export default {
   name: 'Login',
   data: () => ({
-    email: '',
-    password: ''
+    email: '', // дефолтное пустое значение
+    password: '' // дефолтное пустое значение
   }),
   validations: {
-    email: {email, required},
-    password: {required, minLength: minLength(6)}
+    email: {email, required}, //передаем данные в валидатор
+    password: {required, minLength: minLength(6)} //передаем данные в валидатор (6 это длинна пароля)
   },
   methods: {
-    async submitHandler() {
+    async submitHandler() { //асинхронный метод авторизации
       if(this.$v.$invalid) {
         this.$v.$touch();
         return;
       }
-      const formData = {
+      const formData = { //формируем объект с данными
         email: this.email,
         password: this.password
       }
 
       try {
-        await this.$store.dispatch('login', formData);
+        await this.$store.dispatch('login', formData); //делаем запрос, если он удачный, то перенаправляет на страницу с опросами
         this.$router.push('/list');
       } catch (e) {
         console.log(e); 

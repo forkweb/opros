@@ -7,6 +7,7 @@
     <div
       class="list_tasks-items" 
       v-if="surveys.length">
+      <!-- перебираем в цикле опросы -->
       <div
         class="taks_itemI"
         v-for="(item, index) in surveys" :key="index">
@@ -25,14 +26,15 @@
         </router-link>
       </div>
     </div>
+    <!-- перебираем в цикле опросы -->
 
-    <p v-else>Нет задач</p>
+    <p v-else>Нет опросов</p>
     
   </div>
 </template>
 
 <script>
-import firebase from "firebase/app";
+import firebase from "firebase/app"; //библиотека для работы с базой, ниже его компоненты
 import "firebase/auth";
 import "firebase/database";
 import "firebase/firestore";
@@ -47,7 +49,6 @@ export default {
     surveys: "",
     dateparse: ""
   }),
-  // components: { Task },
   computed: {
     tasks() {
       return this.$store.getters.tasks;
@@ -55,36 +56,19 @@ export default {
     displayTasks() {
       return this.tasks;
     },
-    // surveysItems() {
-
-    // }
   },
   mounted() {
     window.M.FormSelect.init(this.$refs.select);
   },
   beforeCreate() {
-    // let ref = db.collection('surveys');
-
     const db = firebase.firestore();
-
     db.collection("surveys").onSnapshot((snap) => {
-      // this.surveys = snap.docs.map(doc => doc.data().data);
-      this.surveys = snap.docs.map((doc) => doc.data());
-
-      //  this.$store.state.tasks.dispatch(this.surveys);
-      //  console.log(this.$store.state)
-
-      // let items = snap.docs.map(doc => {
-      //     return { id: doc.data().id, title: doc.data().data.title }
-      // })
-
-      // console.log(this.surveys = snap.docs.map(doc => doc.data()));
-      // console.log(items);
+      this.surveys = snap.docs.map((doc) => doc.data()); //получение опросов из бады данных
     });
   },
   methods: {
     moment: function () {
-      return moment();
+      return moment(); //инициалтзация библиотеки момент для преобразованяи даты
     }
 },
 };

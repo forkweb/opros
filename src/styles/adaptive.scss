@@ -20,6 +20,12 @@
   .title_list_opros {
     font-size: 2rem;
   }
+  .nav-desk {
+    display: none;
+  }
+  .nav-mobile {
+    display: block;
+  }
 }
 
 @media screen and (max-width:940px) {

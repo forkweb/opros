@@ -4,15 +4,15 @@
       v-if="showblock == true"
       class="task_item">
       <h1>Тема опроса: {{ surveyNow.otherinfo.title }}</h1>
-      <p>Описание: {{ surveyNow.otherinfo.description }}</p>
+      <p class="description_task">Описание: {{ surveyNow.otherinfo.description }}</p>
 
-      <div v-for="surveyI of surveyNow.data" :key="surveyI.id">
+      <div class="title_qw" v-for="surveyI of surveyNow.data" :key="surveyI.id">
         {{ surveyI.itemopros.title }}
 
         <div v-for="user in surveyI.itemopros.variants" :key="user.key">
           <label>
             <input type="checkbox" v-bind:value="user" v-model="checkedNames" />
-            <span>{{ user.variantinfo }}</span>
+            <span class="title_qw-item">{{ user.variantinfo }}</span>
           </label>
         </div>
       </div>
@@ -67,7 +67,7 @@ Vue.component("downloadExcel", JsonExcel);
 export default {
   props: ["title", "survey"],
   data() {
-    return {
+    return { //через параматры, которые предает роут получаем данных об обпросе
       id: this.$route.params["id"],
       surveyNow: this.$route.params.searchTags,
       checkedNames: [],
@@ -81,40 +81,18 @@ export default {
       }
     };
   },
-  created() {
-    // const film = films.find(film => film.id == this.$route.params.id)
-    // if (film) {
-    //   this.film = film
-    // }
-  },
-  computed: {
-    // nowTasks() {
-    //   return this.tasks
-    // }
-  },
   mounted() {
-    window.M.Modal.init("#modal1")
-    // const db = firebase.firestore();
-    //  db.collection("surveys").onSnapshot(snap => {
-    //   this.task = snap.docs.map(doc => doc.data());
-    //  });
-    // db.collection('surveys').doc(this.$route.params.id).get().then(snapshot => {
-    //     if (!snapshot.exists) return;
-    //     let data = snapshot.data() //
-    //     this.task = data
-    // });
+    window.M.Modal.init("#modal1"); //инициализация модалки
   },
   methods: {
     finish() {
-      this.showblock = false
-      // this.$router.push({ path: '/finish' })
+      this.showblock = false //при завершении скрываем блок
     },
-    showModal() {
+    showModal() { //открытие модалки, если в опросе не выбран хотя бы одни ответ, то будет вываливаться в ошибку
       if(!this.checkedNames.length == 0) {
         this.open = true;
       }else {
         alert("Необходимо пройти опрос")
-        // this.$router.push({ path: '/finish' })
       }
      
     },
@@ -122,7 +100,7 @@ export default {
       this.open = false;
     },
     moment: function () {
-      return moment();
+      return moment(); //инизализация библиотеки для работы со временем
     }
   }
 };

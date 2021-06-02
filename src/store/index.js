@@ -6,101 +6,32 @@ import 'firebase/firestore'
 import 'firebase/database'
 import 'firebase/auth'
 
-
-
 Vue.use(Vuex);
-
-
-
-
-
 
 export default new Vuex.Store({
   state: {
-    tasks: []
-    // tasks: db2.collection("surveys").onSnapshot(snap => {
-    //   return snap.docs.map(doc => doc.data());
-    // })
-    // tasks: JSON.parse(localStorage.getItem('tasks') || '[]').map(task => {
-    //   if (new Date(task.date) < new Date()) {
-    //     task.status = 'outdated'
-    //   }
-    //   return task
-    // })
+    tasks: [] //стейт всех опросов
   },
   mutations:{
     setLoadTask(state, value) {
       state.tasks = value;
     },
-    createTask(state, {task, otherinfo}) {
+    createTask(state, {task, otherinfo}) { //логика создания опроса и запись в базу
       state.tasks.push(task,otherinfo)
-      // state.tasks.push()
-
-      // let arrtaks = [{
-      //   data: task,
-      //   otherinfo: otherinfo
-      // }]
-
-      // localStorage.setItem('tasks', JSON.stringify(arrtaks))
-
       const db = firebase.firestore();
 
-      db.collection('surveys').add({
+      db.collection('surveys').add({ //добавление в базу
         data: task,
         otherinfo: otherinfo
       });
     },
-    updateTask(state, {id, description, date}) {
-      const tasks = state.tasks.concat()
-
-      const idx = tasks.findIndex(t => t.id === id)
-      const task = tasks[idx]
-
-      const status = new Date(date) > new Date() ? 'active' : 'outdated'
-
-      tasks[idx] = {...task, date, description, status}
-
-      state.tasks = tasks
-      // localStorage.setItem('tasks', JSON.stringify(state.tasks))
-    },
-    completeTask(state, id) {
-      const idx = state.tasks.findIndex(t => t.id === id)
-      state.tasks[idx].status = 'completed'
-      // localStorage.setItem('tasks', JSON.stringify(state.tasks))
-    }
   },
   actions:{
-    // loadTask({commit}) {
-      // const list = [];
-      // firebase.database().ref('surveys').on('value', data =>{
-      //   for(var i = list.length -1; i>=0; i--) {
-      //     list.splice(i,1);
-      //   }
-      //   data.forEach(obj =>{
-      //     let m = obj.val();
-      //     m.id = obj.key;
-      //     list.push(m);
-      //   })
-      // });
-
-      // const db = firebase.firestore();
-      // db.collection("surveys").onSnapshot(snap => {
-      //     let res = snap.docs.map(doc => doc.data());
-      //     // state.tasks = list
-      //     commit('setLoadTask',res);
-      // });
-    // },
-    createTask({commit}, task) {
+    createTask({commit}, task) { //экшн создания
       commit('createTask', task)
     },
-    updateTask({commit}, task) {
-      commit('updateTask', task)
-    },
-    completeTask({commit}, id) {
-      commit('completeTask', id)
-    }
   },
-  getters: {
+  getters: { //получение id опроса через геттеры
     tasks: s => s.tasks,
     taskById: s => id => s.tasks.find(t => t.id === id),
     allTasks(state) {
